@@ -16,24 +16,39 @@
         <header class="bg-indigo-600 text-white p-4 rounded-lg shadow-md mb-6 flex justify-between items-center">
             <h1 class="text-3xl font-bold text-center">Admin Panel</h1>
             <button id="sign-out-btn" class="hidden bg-red-500 hover:bg-red-600 text-white font-bold py-2 px-4 rounded">
-                Sign Out
+                <i class="fas fa-sign-out-alt mr-2"></i> Sign Out
             </button>
         </header>
         
-        <!-- Admin Login with Google -->
-        <div id="admin-login" class="bg-white p-8 rounded-lg shadow-md max-w-md mx-auto text-center">
-             <h2 class="text-2xl font-bold mb-6 text-gray-700">Admin Login</h2>
-             <p class="text-gray-600 mb-6">Jaari rakhne ke liye kripya apne Google account se sign in karein.</p>
-             <button id="google-login-btn" class="bg-white border border-gray-300 text-gray-700 font-semibold py-3 px-6 rounded-lg shadow-sm hover:bg-gray-50 transition duration-300 flex items-center justify-center w-full">
-                <img src="https://www.gstatic.com/firebasejs/ui/2.0.0/images/auth/google.svg" alt="Google icon" class="w-6 h-6 mr-3">
-                Google Se Sign in Karein
-             </button>
+        <!-- Admin Login with Email/Password -->
+        <div id="admin-login" class="bg-white p-8 rounded-lg shadow-md max-w-md mx-auto">
+             <h2 class="text-2xl font-bold mb-6 text-gray-700 text-center">Admin Login</h2>
+             <p class="text-gray-600 mb-6 text-center">Jaari rakhne ke liye kripya apne email aur password se sign in karein.</p>
+             
+             <!-- Login Form -->
+             <form id="login-form" class="space-y-4">
+                 <div>
+                     <label for="login-email" class="block text-sm font-medium text-gray-700 mb-1">Email Address</label>
+                     <input type="email" id="login-email" placeholder="admin@example.com" required
+                            class="w-full p-3 border rounded-md focus:outline-none focus:ring-2 focus:ring-indigo-500">
+                 </div>
+                 <div>
+                     <label for="login-password" class="block text-sm font-medium text-gray-700 mb-1">Password</label>
+                     <input type="password" id="login-password" placeholder="••••••••" required
+                            class="w-full p-3 border rounded-md focus:outline-none focus:ring-2 focus:ring-indigo-500">
+                 </div>
+                 <div id="login-error" class="hidden bg-red-100 border border-red-400 text-red-700 px-4 py-3 rounded-lg text-sm"></div>
+                 <button type="submit" id="login-btn" 
+                         class="w-full bg-indigo-600 text-white font-semibold py-3 px-6 rounded-lg shadow-sm hover:bg-indigo-700 transition duration-300 flex items-center justify-center">
+                    <i class="fas fa-sign-in-alt mr-2"></i> Sign In
+                 </button>
+             </form>
         </div>
 
         <!-- Access Denied Message -->
         <div id="access-denied" class="hidden bg-red-100 border border-red-400 text-red-700 px-4 py-3 rounded-lg relative max-w-md mx-auto text-center" role="alert">
             <strong class="font-bold">Access Denied!</strong>
-            <span class="block sm:inline">Yeh Google account admin panel ke liye authorized nahi hai.</span>
+            <span class="block sm:inline">Yeh account admin panel ke liye authorized nahi hai.</span>
         </div>
 
         <!-- Admin Content Management (Hidden by default) -->
@@ -48,28 +63,6 @@
                     </div>
                     <button id="save-settings-btn" class="bg-indigo-500 text-white px-6 py-2 rounded-md hover:bg-indigo-600 font-semibold flex items-center justify-center gap-2 mt-2">
                         <i class="fas fa-save"></i> Save Settings
-                    </button>
-                </div>
-            </div>
-
-            <!-- Ad Management -->
-            <div class="bg-white p-6 rounded-lg shadow-md mb-8">
-                <h2 class="text-2xl font-semibold text-gray-800 mb-4 border-b pb-2">Manage Banner Ads</h2>
-                <div class="space-y-4">
-                    <div>
-                        <label for="ad-slot-1" class="font-medium text-gray-700 block mb-1">Ad Slot 1 Code (Header ke neeche):</label>
-                        <textarea id="ad-slot-1" rows="4" placeholder="Adsterra ad code yahan paste karein..." class="w-full p-2 border rounded-md focus:outline-none focus:ring-2 focus:ring-indigo-500 font-mono text-sm"></textarea>
-                    </div>
-                    <div>
-                        <label for="ad-slot-2" class="font-medium text-gray-700 block mb-1">Ad Slot 2 Code (Slider ke neeche):</label>
-                        <textarea id="ad-slot-2" rows="4" placeholder="Adsterra ad code yahan paste karein..." class="w-full p-2 border rounded-md focus:outline-none focus:ring-2 focus:ring-indigo-500 font-mono text-sm"></textarea>
-                    </div>
-                    <div>
-                        <label for="ad-slot-3" class="font-medium text-gray-700 block mb-1">Ad Slot 3 Code (Footer mein):</label>
-                        <textarea id="ad-slot-3" rows="4" placeholder="Adsterra ad code yahan paste karein..." class="w-full p-2 border rounded-md focus:outline-none focus:ring-2 focus:ring-indigo-500 font-mono text-sm"></textarea>
-                    </div>
-                    <button id="save-ads-btn" class="bg-teal-500 text-white px-6 py-2 rounded-md hover:bg-teal-600 font-semibold flex items-center justify-center gap-2 mt-2">
-                        <i class="fas fa-save"></i> Save Ad Codes
                     </button>
                 </div>
             </div>
@@ -94,10 +87,10 @@
                 <h2 class="text-2xl font-semibold text-gray-800 mb-4 border-b pb-2">Manage Files</h2>
                 <div class="grid grid-cols-1 md:grid-cols-2 gap-4 mb-4">
                     <input type="text" id="file-title" placeholder="File Title" class="p-2 border rounded-md focus:outline-none focus:ring-2 focus:ring-indigo-500">
-                    <input type="number" id="file-ad-count" placeholder="Ads to Unlock" value="10" min="1" class="p-2 border rounded-md focus:outline-none focus:ring-2 focus:ring-indigo-500">
+                    <input type="number" id="file-ad-count" placeholder="Required Ads to Unlock" value="5" min="1" class="p-2 border rounded-md focus:outline-none focus:ring-2 focus:ring-indigo-500">
                     <input type="url" id="file-thumbnail-url" placeholder="Thumbnail Image URL" class="p-2 border rounded-md md:col-span-2 focus:outline-none focus:ring-2 focus:ring-indigo-500">
                     <textarea id="file-description" placeholder="File Description" class="p-2 border rounded-md md:col-span-2 h-24 focus:outline-none focus:ring-2 focus:ring-indigo-500"></textarea>
-                    <input type="url" id="file-download-url" placeholder="Actual File Download URL" class="p-2 border rounded-md md:col-span-2 focus:outline-none focus:ring-2 focus:ring-indigo-500">
+                    <input type="url" id="file-download-url" placeholder="Actual File Download URL (Link)" class="p-2 border rounded-md md:col-span-2 focus:outline-none focus:ring-2 focus:ring-indigo-500">
                 </div>
                 <button id="add-file-btn" class="w-full bg-blue-500 text-white py-2 rounded-md hover:bg-blue-600 font-semibold flex items-center justify-center gap-2">
                     <i class="fas fa-upload"></i> Add File
@@ -117,10 +110,10 @@
                 <div class="mt-2 px-7 py-3 space-y-4">
                      <input type="hidden" id="edit-file-id">
                      <input type="text" id="edit-file-title" placeholder="File Title" class="w-full p-2 border rounded-md focus:outline-none focus:ring-2 focus:ring-indigo-500">
-                     <input type="number" id="edit-file-ad-count" placeholder="Ads to Unlock" min="1" class="w-full p-2 border rounded-md focus:outline-none focus:ring-2 focus:ring-indigo-500">
+                     <input type="number" id="edit-file-ad-count" placeholder="Required Ads to Unlock" min="1" class="w-full p-2 border rounded-md focus:outline-none focus:ring-2 focus:ring-indigo-500">
                      <input type="url" id="edit-file-thumbnail-url" placeholder="Thumbnail Image URL" class="w-full p-2 border rounded-md focus:outline-none focus:ring-2 focus:ring-indigo-500">
                      <textarea id="edit-file-description" placeholder="File Description" class="w-full p-2 border rounded-md h-24 focus:outline-none focus:ring-2 focus:ring-indigo-500"></textarea>
-                     <input type="url" id="edit-file-download-url" placeholder="Actual File Download URL" class="w-full p-2 border rounded-md focus:outline-none focus:ring-2 focus:ring-indigo-500">
+                     <input type="url" id="edit-file-download-url" placeholder="Actual File Download URL (Link)" class="w-full p-2 border rounded-md focus:outline-none focus:ring-2 focus:ring-indigo-500">
                 </div>
                 <div class="flex justify-end items-center px-4 py-3 gap-2">
                     <button id="cancel-edit-btn" class="px-4 py-2 bg-gray-500 text-white text-base font-medium rounded-md w-auto shadow-sm hover:bg-gray-600 focus:outline-none focus:ring-2 focus:ring-gray-300">
@@ -135,7 +128,7 @@
     </div>
 
     <!-- Custom Toast Notification -->
-    <div id="toast" class="fixed bottom-5 right-5 text-white py-2 px-4 rounded-lg shadow-lg opacity-0 transition-opacity duration-300">
+    <div id="toast" class="fixed bottom-5 right-5 text-white py-2 px-4 rounded-lg shadow-lg opacity-0 transition-opacity duration-300 z-50">
         <p id="toast-message"></p>
     </div>
 
@@ -143,7 +136,7 @@
     <script type="module">
         import { initializeApp } from "https://www.gstatic.com/firebasejs/10.12.2/firebase-app.js";
         import { getFirestore, collection, addDoc, getDocs, doc, deleteDoc, serverTimestamp, query, orderBy, setDoc, getDoc, updateDoc } from "https://www.gstatic.com/firebasejs/10.12.2/firebase-firestore.js";
-        import { getAuth, GoogleAuthProvider, signInWithPopup, onAuthStateChanged, signOut } from "https://www.gstatic.com/firebasejs/10.12.2/firebase-auth.js";
+        import { getAuth, signInWithEmailAndPassword, onAuthStateChanged, signOut } from "https://www.gstatic.com/firebasejs/10.12.2/firebase-auth.js";
 
         const firebaseConfig = {
   apiKey: "AIzaSyDEPyhjNRSXEmIRlpKlpt3zbDg8qLuJYI0",
@@ -156,17 +149,17 @@
   measurementId: "G-7XHC81RT5D"
 };
         
-        const authorizedAdmins = ['ruheluddin62@gmail.com'];
+        const authorizedAdminUIDs = ['Z6LTNwBdUOXooqmLZWS6ZxCG0bf1'];
 
         const app = initializeApp(firebaseConfig);
         const db = getFirestore(app);
         const auth = getAuth(app);
-        const provider = new GoogleAuthProvider();
 
         // DOM elements
         const adminLogin = document.getElementById('admin-login');
         const adminContent = document.getElementById('admin-content');
-        const googleLoginBtn = document.getElementById('google-login-btn');
+        const loginForm = document.getElementById('login-form');
+        const loginError = document.getElementById('login-error');
         const signOutBtn = document.getElementById('sign-out-btn');
         const accessDenied = document.getElementById('access-denied');
         const fileList = document.getElementById('file-list');
@@ -174,7 +167,7 @@
         const editModal = document.getElementById('edit-file-modal');
 
         onAuthStateChanged(auth, (user) => {
-            if (user && authorizedAdmins.includes(user.email)) {
+            if (user && authorizedAdminUIDs.includes(user.uid)) {
                 adminLogin.classList.add('hidden');
                 accessDenied.classList.add('hidden');
                 adminContent.classList.remove('hidden');
@@ -188,15 +181,55 @@
             }
         });
 
-        googleLoginBtn.addEventListener('click', () => signInWithPopup(auth, provider));
+        // Login with Email/Password
+        loginForm.addEventListener('submit', async (e) => {
+            e.preventDefault();
+            
+            const email = document.getElementById('login-email').value;
+            const password = document.getElementById('login-password').value;
+            const loginBtn = document.getElementById('login-btn');
+            
+            loginError.classList.add('hidden');
+            loginBtn.disabled = true;
+            loginBtn.innerHTML = '<i class="fas fa-spinner fa-spin mr-2"></i> Signing in...';
+            
+            try {
+                const userCredential = await signInWithEmailAndPassword(auth, email, password);
+                const user = userCredential.user;
+                
+                if (!authorizedAdminUIDs.includes(user.uid)) {
+                    await signOut(auth);
+                    loginError.textContent = 'Yeh account admin panel ke liye authorized nahi hai.';
+                    loginError.classList.remove('hidden');
+                }
+            } catch (error) {
+                console.error("Login error:", error);
+                let errorMessage = 'Login failed. Please check your credentials.';
+                
+                if (error.code === 'auth/invalid-credential' || error.code === 'auth/wrong-password' || error.code === 'auth/user-not-found') {
+                    errorMessage = 'Invalid email or password.';
+                } else if (error.code === 'auth/invalid-email') {
+                    errorMessage = 'Invalid email format.';
+                } else if (error.code === 'auth/too-many-requests') {
+                    errorMessage = 'Too many failed attempts. Please try again later.';
+                }
+                
+                loginError.textContent = errorMessage;
+                loginError.classList.remove('hidden');
+            } finally {
+                loginBtn.disabled = false;
+                loginBtn.innerHTML = '<i class="fas fa-sign-in-alt mr-2"></i> Sign In';
+            }
+        });
+
         signOutBtn.addEventListener('click', () => signOut(auth));
 
-        // --- NEW: Improved Toast and Button Handling ---
+        // --- Improved Toast and Button Handling ---
 
         function showToast(message, type = 'default') {
             const toast = document.getElementById('toast');
             toast.querySelector('#toast-message').textContent = message;
-            toast.classList.remove('bg-gray-800', 'bg-green-600', 'bg-red-500'); // Remove old colors
+            toast.classList.remove('bg-gray-800', 'bg-green-600', 'bg-red-500');
             
             if (type === 'success') {
                 toast.classList.add('bg-green-600');
@@ -231,7 +264,6 @@
 
         async function loadAdminData() {
             await loadAdminSettings();
-            await loadAdminAds();
             await loadAdminSliders();
             await loadAdminFiles();
         }
@@ -252,34 +284,6 @@
         async function loadAdminSettings() {
             const docSnap = await getDoc(doc(db, "settings", "general"));
             timerDurationInput.value = docSnap.exists() ? docSnap.data().timerDuration : 10;
-        }
-        
-        // --- Ad Management ---
-        const adSlot1Input = document.getElementById('ad-slot-1');
-        const adSlot2Input = document.getElementById('ad-slot-2');
-        const adSlot3Input = document.getElementById('ad-slot-3');
-
-        document.getElementById('save-ads-btn').addEventListener('click', (e) => {
-            const adData = {
-                adSlot1: adSlot1Input.value,
-                adSlot2: adSlot2Input.value,
-                adSlot3: adSlot3Input.value,
-            };
-            handleAsyncButton(e.currentTarget, async () => {
-                await setDoc(doc(db, "settings", "ads"), adData);
-                showToast("Ad codes save ho gaye!", 'success');
-            });
-        });
-
-        async function loadAdminAds() {
-            const docRef = doc(db, "settings", "ads");
-            const docSnap = await getDoc(docRef);
-            if (docSnap.exists()) {
-                const adData = docSnap.data();
-                adSlot1Input.value = adData.adSlot1 || '';
-                adSlot2Input.value = adData.adSlot2 || '';
-                adSlot3Input.value = adData.adSlot3 || '';
-            }
         }
 
         // --- Slider Management ---
@@ -334,13 +338,20 @@
             const requiredAds = parseInt(document.getElementById('file-ad-count').value);
 
             if (!title || !thumbnailUrl || !description || !downloadUrl || !requiredAds) return showToast("Kripya sabhi file fields bharein.", 'error');
-            if (requiredAds <= 0) return showToast("Ads 0 se zyada hone chahiye.", 'error');
+            if (requiredAds <= 0) return showToast("Required ads 0 se zyada hone chahiye.", 'error');
             
             handleAsyncButton(e.currentTarget, async () => {
-                await addDoc(collection(db, "files"), { title, thumbnailUrl, description, downloadUrl, requiredAds, createdAt: serverTimestamp() });
+                await addDoc(collection(db, "files"), { 
+                    title, 
+                    thumbnailUrl, 
+                    description, 
+                    downloadUrl, 
+                    requiredAds, 
+                    createdAt: serverTimestamp() 
+                });
                 showToast("File add ho gayi!", 'success');
                 ['file-title', 'file-thumbnail-url', 'file-description', 'file-download-url'].forEach(id => document.getElementById(id).value = '');
-                document.getElementById('file-ad-count').value = 10;
+                document.getElementById('file-ad-count').value = 5;
                 loadAdminFiles();
             });
         });
@@ -358,7 +369,7 @@
                     <img src="${file.thumbnailUrl}" class="w-full h-32 object-cover rounded-md mb-2">
                     <h3 class="font-bold text-md">${file.title}</h3>
                     <p class="text-sm text-gray-600 truncate my-1">${file.description}</p>
-                    <p class="text-sm font-semibold text-gray-800 mt-2">Ads to Unlock: ${file.requiredAds || 'N/A'}</p>
+                    <p class="text-sm font-semibold text-blue-600 mt-2">Required Ads: ${file.requiredAds || 5}</p>
                     <div class="flex gap-2 mt-2">
                          <button data-id="${doc.id}" class="edit-file-btn w-full bg-yellow-500 text-white py-1 rounded-md hover:bg-yellow-600 font-semibold flex items-center justify-center gap-2">
                             <i class="fas fa-edit"></i> Edit
@@ -389,11 +400,11 @@
                 if (docSnap.exists()) {
                     const fileData = docSnap.data();
                     document.getElementById('edit-file-id').value = fileId;
-                    document.getElementById('edit-file-title').value = fileData.title;
-                    document.getElementById('edit-file-ad-count').value = fileData.requiredAds;
-                    document.getElementById('edit-file-thumbnail-url').value = fileData.thumbnailUrl;
-                    document.getElementById('edit-file-description').value = fileData.description;
-                    document.getElementById('edit-file-download-url').value = fileData.downloadUrl;
+                    document.getElementById('edit-file-title').value = fileData.title || '';
+                    document.getElementById('edit-file-ad-count').value = fileData.requiredAds || 5;
+                    document.getElementById('edit-file-thumbnail-url').value = fileData.thumbnailUrl || '';
+                    document.getElementById('edit-file-description').value = fileData.description || '';
+                    document.getElementById('edit-file-download-url').value = fileData.downloadUrl || '';
                     editModal.classList.remove('hidden');
                 }
             }
@@ -418,7 +429,7 @@
                 return showToast("Kripya sabhi fields bharein.", 'error');
             }
             if (updatedData.requiredAds <= 0) {
-                return showToast("Ads 0 se zyada hone chahiye.", 'error');
+                return showToast("Required ads 0 se zyada hone chahiye.", 'error');
             }
             
             handleAsyncButton(e.currentTarget, async () => {
@@ -430,7 +441,13 @@
             });
         });
 
+        // Close modal when clicking outside
+        editModal.addEventListener('click', (e) => {
+            if (e.target === editModal) {
+                editModal.classList.add('hidden');
+            }
+        });
+
     </script>
 </body>
 </html>
-
